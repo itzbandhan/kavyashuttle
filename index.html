@@ -1,124 +1,355 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Kavya Shuttle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShuttleSense</title>
   <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="shortcut icon" href="https://kavyaschool.edu.np/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://kavyaschool.edu.np/favicon.ico">
 </head>
 
-<body class="bg-slate-100 text-slate-800">
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
 
-<header class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-<div class="flex items-center gap-3">
-  <img
-    src="https://kavyaschool.edu.np/images/Kavya-Ing.svg"
-    alt="Kavya School"
-    class="h-8 w-auto object-contain"
-  />
-</div>
+<!-- HEADER -->
+<header class="sticky top-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img
+          src="https://kavyaschool.edu.np/images/Kavya-Ing.svg"
+          class="h-10 sm:h-12 md:h-14 w-auto object-contain"
+          alt="Kavya Logo"
+        />
+      </div>
 
-
-  <nav class="hidden md:flex gap-8 text-sm text-slate-600">
-    <!-- <a href="#" class="hover:text-blue-600">Home</a>
-    <a href="admin.html" class="hover:text-blue-600">Admin</a>
-    <a href="#" class="hover:text-blue-600">Contact</a> -->
-  </nav>
+    </div>
+  </div>
 </header>
 
-<!-- HERO -->
-<main class="max-w-7xl mx-auto px-6 mt-10">
-  <div class="bg-white rounded-[32px] shadow-xl px-10 py-14 grid lg:grid-cols-2 gap-16 items-center">
+<!-- HERO SECTION -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+  <div class="bg-white rounded-3xl sm:rounded-[32px] lg:rounded-[40px] shadow-2xl overflow-hidden">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
 
-    <!-- LEFT -->
-    <div class="space-y-8">
-      <div class="space-y-4">
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
-          Find the <span class="text-[#76c044]">best shuttle</span><br />
-          from your nearest stop
-        </h1>
+      <!-- TEXT CONTENT -->
+      <div class="px-6 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-16 flex flex-col justify-center">
+        <div class="space-y-6 sm:space-y-8">
+          
+          <div class="space-y-3 sm:space-y-4">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-slate-900">
+              Find the <span class="text-[#76c044]">best shuttle</span><br class="hidden sm:inline">
+              from your nearest stop
+            </h1>
 
-        <p class="text-slate-600 max-w-md">
-          A smart shuttle route finder designed exclusively for Kavya
-          School +2 students. Search by location or let us find the
-          nearest route for you.
-        </p>
-      </div>
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+              A smart shuttle route finder designed exclusively for Kavya School +2 students.
+            </p>
+          </div>
 
-      <div class="space-y-4 max-w-md">
+          <!-- SEARCH BOX -->
+          <div class="space-y-4">
 
-<input
-  id="searchInput"
-  type="text"
-  placeholder="Type your nearest location (e.g. Gatthaghar)"
-  class="hidden w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition"
-/>
+            <div class="relative">
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="Type your location (e.g. Gatthaghar)"
+                class="hidden w-full px-4 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-slate-200 focus:border-[#76c044] focus:ring-4 focus:ring-[#76c044]/10 outline-none transition text-base sm:text-lg"
+              />
+              
+              <div
+                id="suggestions"
+                class="hidden absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-10 max-h-64 overflow-y-auto"
+              ></div>
+            </div>
 
-<div
-  id="suggestions"
-  class="hidden mt-2 bg-white border border-slate-200 rounded-xl shadow overflow-hidden"
-></div>
+            <!-- ACTION BUTTONS -->
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <button
+                id="findBtn"
+                class="w-full sm:flex-1 bg-[#76c044] hover:bg-[#68a93c] active:bg-[#5d9635] text-white px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-semibold text-base sm:text-lg transition-all duration-200 shadow-lg shadow-[#76c044]/20 hover:shadow-xl hover:shadow-[#76c044]/30 hover:-translate-y-0.5">
+                Find My Route
+              </button>
 
-        <div class="flex gap-4">
-          <button
-            id="findBtn"
-            class="bg-[#76c044] hover:bg-[#7EB359] text-white px-6 py-3 rounded-xl font-medium transition"
-          >
-            Find My Route
-          </button>
+              <button
+                id="locationBtn"
+                class="w-full sm:flex-1 bg-white border-2 border-[#76c044] text-[#76c044] hover:bg-[#76c044] hover:text-white px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-semibold text-base sm:text-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                📍 Use GPS Location
+              </button>
+            </div>
+
+            <p id="error" class="text-sm sm:text-base text-red-600 font-medium hidden"></p>
+          </div>
+
         </div>
-
-        <p id="error" class="text-sm text-red-600 hidden"></p>
       </div>
-    </div>
 
-    <div class="bg-[#76c044] rounded-3xl p-10 space-y-3">
-      <p class="text-white font-semibold text-xl">
-        Safe • Reliable • Student-first
-      </p>
-      <p class="text-white text-sm">
-        Optimized routes • Local drivers • Daily commute made easy
-      </p>
-    </div>
+      <!-- IMAGE -->
+      <div class="w-full bg-gradient-to-br from-slate-50 to-slate-100 p-6 sm:p-8 lg:p-12 flex items-center justify-center">
+        <img
+          src="/kavyashuttle.png"
+          class="rounded-2xl sm:rounded-3xl w-full max-w-md lg:max-w-lg object-contain drop-shadow-2xl"
+          alt="Shuttle Van"
+        />
+      </div>
 
+    </div>
   </div>
 </main>
 
-<section id="info" class="max-w-6xl mx-auto px-6 mt-20 mb-24">
-  <div class="grid md:grid-cols-3 gap-8">
+<!-- FEATURE CARDS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-16">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
 
-    <div class="bg-white rounded-2xl p-8 shadow text-center space-y-3">
-      <h3 class="font-semibold text-lg">Search by location</h3>
-      <p class="text-sm text-slate-600">
-        Type a few letters and get smart route suggestions instantly.
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-slate-200">
+      <div class="text-4xl sm:text-5xl mb-4">🔍</div>
+      <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Search by location</h3>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Type a few letters and get instant suggestions for nearby routes.
       </p>
     </div>
 
-    <div class="bg-white rounded-2xl p-8 shadow text-center space-y-3">
-      <h3 class="font-semibold text-lg">Use GPS</h3>
-      <p class="text-sm text-slate-600">
-        Automatically detects your nearest pickup point.
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-100">
+      <div class="text-4xl sm:text-5xl mb-4">📍</div>
+      <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Use GPS</h3>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Automatically detects your nearest pickup point using your location.
       </p>
     </div>
 
-    <div class="bg-white rounded-2xl p-8 shadow text-center space-y-3">
-      <h3 class="font-semibold text-lg">Verified routes</h3>
-      <p class="text-sm text-slate-600">
-        Official school shuttles with driver details.
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-100 sm:col-span-2 lg:col-span-1">
+      <div class="text-4xl sm:text-5xl mb-4">✅</div>
+      <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Verified routes</h3>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Official school shuttles with verified routes and driver details.
       </p>
     </div>
 
   </div>
 </section>
 
-<script src="app.js"></script>
+<!-- FOOTER -->
+<footer class="bg-white border-t border-slate-200 mt-8 sm:mt-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 text-center">
+    <p class="text-sm sm:text-base text-slate-600 font-medium">
+      Made with 💚 by Students at Kavya School
+    </p>
+  </div>
+</footer>
 
 <script>
-document.getElementById("findBtn").onclick = () => {
-  const input = document.getElementById("searchInput");
-  input.classList.remove("hidden");
-  input.focus();
+// Mock route data for demo
+let routesData = {
+  "2": {
+    "route_name": "Duwakot-Dudhpati-Sallaghari Route",
+    "driver_name": "Lok Bdr.",
+    "driver_contact": "9808256360",
+    "school_contact": "9801066771, 9802356792",
+    "pickup_locations": [
+      {"name": "Gatthaghar", "latitude": "27.6739136", "longitude": "85.3739132"},
+      {"name": "Lokanthali", "latitude": "27.6741962", "longitude": "85.3592216"},
+      {"name": "Sallaghari", "latitude": "27.6732650", "longitude": "85.4073497"}
+    ]
+  },
+  "3": {
+    "route_name": "Sirutar-Bhaktapur",
+    "driver_name": "Dipak Bhandari",
+    "driver_contact": "9843666114",
+    "school_contact": "9801066771, 9802356792",
+    "pickup_locations": [
+      {"name": "Kausaltar", "latitude": "27.6745787", "longitude": "85.3642978"},
+      {"name": "Madhyapur Thimi", "latitude": "27.6786495", "longitude": "85.3983025"}
+    ]
+  }
 };
+
+const searchInput = document.getElementById("searchInput");
+const suggestionsBox = document.getElementById("suggestions");
+const errorBox = document.getElementById("error");
+const findBtn = document.getElementById("findBtn");
+const locationBtn = document.getElementById("locationBtn");
+
+function getScore(query, text) {
+  if (text === query) return 6;
+  if (text.startsWith(query)) return 4;
+  if (text.includes(query)) return 2;
+  return 0;
+}
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.trim().toLowerCase();
+  suggestionsBox.innerHTML = "";
+  errorBox.classList.add("hidden");
+
+  if (!query) {
+    suggestionsBox.classList.add("hidden");
+    return;
+  }
+
+  let results = [];
+
+  Object.entries(routesData).forEach(([routeId, route]) => {
+    route.pickup_locations.forEach(loc => {
+      const name = loc.name.toLowerCase();
+      const score = getScore(query, name);
+
+      if (score > 0) {
+        results.push({
+          routeId,
+          routeName: route.route_name,
+          location: loc.name,
+          score: score + query.length / name.length
+        });
+      }
+    });
+  });
+
+  if (!results.length) {
+    suggestionsBox.classList.add("hidden");
+    return;
+  }
+
+  results.sort((a, b) => b.score - a.score);
+
+  const unique = [];
+  const seen = new Set();
+
+  for (let r of results) {
+    if (!seen.has(r.routeId)) {
+      unique.push(r);
+      seen.add(r.routeId);
+    }
+    if (unique.length === 4) break;
+  }
+
+  unique.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "px-4 sm:px-5 py-3.5 sm:py-4 cursor-pointer hover:bg-[#76c044]/5 active:bg-[#76c044]/10 transition-colors border-b last:border-b-0";
+
+    div.innerHTML = `
+      <div class="font-semibold text-base sm:text-lg text-slate-900">${r.location}</div>
+      <div class="text-xs sm:text-sm text-slate-500 mt-1">
+        Route-${r.routeId} • ${r.routeName}
+      </div>
+    `;
+
+    div.onclick = () => {
+      alert(`Navigating to Route ${r.routeId}: ${r.routeName}`);
+    };
+
+    suggestionsBox.appendChild(div);
+  });
+
+  suggestionsBox.classList.remove("hidden");
+});
+
+findBtn.onclick = () => {
+  const input = searchInput;
+  
+  if (input.classList.contains("hidden")) {
+    input.classList.remove("hidden");
+    input.focus();
+    findBtn.textContent = "Search";
+  } else {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+      showError("Please type your nearest location.");
+      return;
+    }
+
+    let bestMatch = null;
+    let bestScore = 0;
+
+    Object.entries(routesData).forEach(([routeId, route]) => {
+      route.pickup_locations.forEach(loc => {
+        const name = loc.name.toLowerCase();
+        const score = getScore(query, name);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = routeId;
+        }
+      });
+    });
+
+    if (!bestMatch) {
+      showError("No matching route found.");
+      return;
+    }
+
+    alert(`Found Route ${bestMatch}: ${routesData[bestMatch].route_name}`);
+  }
+};
+
+locationBtn.onclick = () => {
+  errorBox.classList.add("hidden");
+
+  if (!navigator.geolocation) {
+    showError("Geolocation not supported by your browser.");
+    return;
+  }
+
+  locationBtn.textContent = "Getting location...";
+  locationBtn.disabled = true;
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude, longitude } = pos.coords;
+      let closest = { dist: Infinity, routeId: null };
+
+      Object.entries(routesData).forEach(([routeId, route]) => {
+        route.pickup_locations.forEach(loc => {
+          const d = haversine(
+            latitude,
+            longitude,
+            parseFloat(loc.latitude),
+            parseFloat(loc.longitude)
+          );
+
+          if (d < closest.dist) {
+            closest = { dist: d, routeId };
+          }
+        });
+      });
+
+      locationBtn.textContent = "📍 Use GPS Location";
+      locationBtn.disabled = false;
+
+      if (closest.dist > 5 || !closest.routeId) {
+        showError("No route found nearby (within 5km).");
+        return;
+      }
+
+      alert(`Nearest Route: ${routesData[closest.routeId].route_name} (${closest.dist.toFixed(2)}km away)`);
+    },
+    error => {
+      locationBtn.textContent = "📍 Use GPS Location";
+      locationBtn.disabled = false;
+      showError("Could not get your location. Please enable location access.");
+    }
+  );
+};
+
+function showError(msg) {
+  errorBox.innerText = msg;
+  errorBox.classList.remove("hidden");
+}
+
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) ** 2;
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 </script>
 
 </body>
