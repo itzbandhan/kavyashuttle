@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
 
 <!-- HEADER -->
-<header class="sticky top-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
+<header class="sticky top-0 backdrop-blur-sm z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -22,13 +21,12 @@
           alt="Kavya Logo"
         />
       </div>
-
     </div>
   </div>
 </header>
 
 <!-- HERO SECTION -->
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12">
   <div class="bg-white rounded-3xl sm:rounded-[32px] lg:rounded-[40px] shadow-2xl overflow-hidden">
     
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
@@ -111,7 +109,7 @@
       </p>
     </div>
 
-    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-100">
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-slate-200">
       <div class="text-4xl sm:text-5xl mb-4">📍</div>
       <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Use GPS</h3>
       <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -119,7 +117,7 @@
       </p>
     </div>
 
-    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-100 sm:col-span-2 lg:col-span-1">
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-slate-200 sm:col-span-2 lg:col-span-1">
       <div class="text-4xl sm:text-5xl mb-4">✅</div>
       <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Verified routes</h3>
       <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -134,42 +132,27 @@
 <footer class="bg-white border-t border-slate-200 mt-8 sm:mt-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 text-center">
     <p class="text-sm sm:text-base text-slate-600 font-medium">
-      Made with 💚 by Students at Kavya School
+      Made with 💝 by Students from Kavya School
     </p>
   </div>
 </footer>
 
 <script>
-// Mock route data for demo
-let routesData = {
-  "2": {
-    "route_name": "Duwakot-Dudhpati-Sallaghari Route",
-    "driver_name": "Lok Bdr.",
-    "driver_contact": "9808256360",
-    "school_contact": "9801066771, 9802356792",
-    "pickup_locations": [
-      {"name": "Gatthaghar", "latitude": "27.6739136", "longitude": "85.3739132"},
-      {"name": "Lokanthali", "latitude": "27.6741962", "longitude": "85.3592216"},
-      {"name": "Sallaghari", "latitude": "27.6732650", "longitude": "85.4073497"}
-    ]
-  },
-  "3": {
-    "route_name": "Sirutar-Bhaktapur",
-    "driver_name": "Dipak Bhandari",
-    "driver_contact": "9843666114",
-    "school_contact": "9801066771, 9802356792",
-    "pickup_locations": [
-      {"name": "Kausaltar", "latitude": "27.6745787", "longitude": "85.3642978"},
-      {"name": "Madhyapur Thimi", "latitude": "27.6786495", "longitude": "85.3983025"}
-    ]
-  }
-};
-
+let routesData = {};
 const searchInput = document.getElementById("searchInput");
 const suggestionsBox = document.getElementById("suggestions");
 const errorBox = document.getElementById("error");
 const findBtn = document.getElementById("findBtn");
 const locationBtn = document.getElementById("locationBtn");
+
+fetch("index.json")
+  .then(res => res.json())
+  .then(data => {
+    routesData = data;
+  })
+  .catch(() => {
+    showError("Failed to load route data.");
+  });
 
 function getScore(query, text) {
   if (text === query) return 6;
@@ -236,7 +219,7 @@ searchInput.addEventListener("input", () => {
     `;
 
     div.onclick = () => {
-      alert(`Navigating to Route ${r.routeId}: ${r.routeName}`);
+      window.location.href = `route.html?id=${r.routeId}`;
     };
 
     suggestionsBox.appendChild(div);
@@ -251,7 +234,6 @@ findBtn.onclick = () => {
   if (input.classList.contains("hidden")) {
     input.classList.remove("hidden");
     input.focus();
-    findBtn.textContent = "Search";
   } else {
     const query = searchInput.value.trim().toLowerCase();
 
@@ -279,7 +261,7 @@ findBtn.onclick = () => {
       return;
     }
 
-    alert(`Found Route ${bestMatch}: ${routesData[bestMatch].route_name}`);
+    window.location.href = `route.html?id=${bestMatch}`;
   }
 };
 
@@ -287,49 +269,38 @@ locationBtn.onclick = () => {
   errorBox.classList.add("hidden");
 
   if (!navigator.geolocation) {
-    showError("Geolocation not supported by your browser.");
+    showError("Geolocation not supported.");
     return;
   }
 
-  locationBtn.textContent = "Getting location...";
-  locationBtn.disabled = true;
+  navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude, longitude } = pos.coords;
+    let closest = { dist: Infinity, routeId: null };
 
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      const { latitude, longitude } = pos.coords;
-      let closest = { dist: Infinity, routeId: null };
+    Object.entries(routesData).forEach(([routeId, route]) => {
+      route.pickup_locations.forEach(loc => {
+        const d = haversine(
+          latitude,
+          longitude,
+          parseFloat(loc.latitude),
+          parseFloat(loc.longitude)
+        );
 
-      Object.entries(routesData).forEach(([routeId, route]) => {
-        route.pickup_locations.forEach(loc => {
-          const d = haversine(
-            latitude,
-            longitude,
-            parseFloat(loc.latitude),
-            parseFloat(loc.longitude)
-          );
-
-          if (d < closest.dist) {
-            closest = { dist: d, routeId };
-          }
-        });
+        if (d < closest.dist) {
+          closest = { dist: d, routeId };
+        }
       });
+    });
 
-      locationBtn.textContent = "📍 Use GPS Location";
-      locationBtn.disabled = false;
-
-      if (closest.dist > 5 || !closest.routeId) {
-        showError("No route found nearby (within 5km).");
-        return;
-      }
-
-      alert(`Nearest Route: ${routesData[closest.routeId].route_name} (${closest.dist.toFixed(2)}km away)`);
-    },
-    error => {
-      locationBtn.textContent = "📍 Use GPS Location";
-      locationBtn.disabled = false;
-      showError("Could not get your location. Please enable location access.");
+    if (closest.dist > 5 || !closest.routeId) {
+      showError(
+        "No route found nearby. Please contact student services."
+      );
+      return;
     }
-  );
+
+    window.location.href = `route.html?id=${closest.routeId}`;
+  });
 };
 
 function showError(msg) {
