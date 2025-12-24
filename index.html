@@ -3,138 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kavya Shuttle</title>
+  <title>Route Sense</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="shortcut icon" href="https://kavyaschool.edu.np/favicon.ico">
+  <style>
+    /* Individual brand colors for Kavya text */
+    .kavya-text { font-weight: 900; display: inline-flex; }
+    .k-orange { color: #f39200; }
+    .a-red { color: #e30613; }
+    .v-blue { color: #0071bc; }
+    .y-green { color: #76c044; }
+    .a-slate { color: #414042; }
+    
+    /* Smooth transition for search suggestions */
+    #suggestions {
+      scrollbar-width: thin;
+      scrollbar-color: #76c044 #f1f5f9;
+    }
+  </style>
 </head>
 
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
 
-<!-- HEADER -->
-<header class="sticky top-0 backdrop-blur-sm z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-    <div class="flex items-center justify-center sm:justify-start">
-      <div class="flex items-center gap-3">
-        <img
-          src="https://kavyaschool.edu.np/images/Kavya-Ing.svg"
-          class="h-10 sm:h-12 md:h-14 w-auto object-contain"
-          alt="Kavya Logo"
-        />
-      </div>
-    </div>
+<header class="sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-center">
+    <img src="https://kavyaschool.edu.np/images/Kavya-Ing.svg" class="h-12 sm:h-16 w-auto" alt="Kavya Logo" />
   </div>
 </header>
 
-<!-- HERO SECTION -->
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-6">
-  <div class="bg-white rounded-3xl sm:rounded-[32px] lg:rounded-[40px] shadow-2xl overflow-hidden">
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
-
-      <!-- TEXT CONTENT -->
-      <div class="px-6 pt-4 pb-6 sm:px-8 sm:pt-6 sm:pb-5 lg:px-12 lg:pt-8 lg:pb-6 flex flex-col justify-center">
-        <div class="space-y-5 sm:space-y-8">
+<main class="max-w-7xl mx-auto px-4 py-6 sm:py-10">
+  <div class="bg-white rounded-[40px] shadow-2xl overflow-hidden border border-slate-100 mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      
+      <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
+        <div class="space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-widest">
+            <i data-lucide="bus" class="w-3 h-3"></i> Student Shuttle Service
+          </div>
           
-          <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-slate-900">
-              Find the <span class="text-[#76c044]">best shuttle</span><br class="hidden sm:inline">
-              from your nearest stop
-            </h1>
+          <h1 class="text-4xl sm:text-5xl xl:text-6xl font-black text-slate-900 leading-tight">
+            Find the <span class="text-[#76c044]">best shuttle</span><br>
+            <span class="text-slate-700">from your stop</span>
+          </h1>
 
-            <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
-              A smart shuttle route finder designed exclusively for Kavya School +2 students.
-            </p>
-          </div>
+          <p class="text-lg text-slate-600 leading-relaxed max-w-md">
+            The official smart route finder for 
+           Kavya School students.
+          </p>
 
-          <!-- SEARCH BOX -->
-          <div class="space-y-4">
-
+          <div class="space-y-4 pt-4">
             <div class="relative">
-              <input
-                id="searchInput"
-                type="text"
-                placeholder="Type your location (e.g. Gatthaghar)"
-                class="hidden w-full px-4 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-slate-200 focus:border-[#76c044] focus:ring-4 focus:ring-[#76c044]/10 outline-none transition text-base sm:text-lg"
-              />
-              
-              <div
-                id="suggestions"
-                class="hidden absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-10 max-h-64 overflow-y-auto"
-              ></div>
+              <input id="searchInput" type="text" placeholder="Type your location (e.g. Gatthaghar)" 
+                class="hidden w-full px-6 py-4 rounded-2xl border-2 border-slate-100 focus:border-[#76c044] focus:ring-4 focus:ring-[#76c044]/10 outline-none transition-all text-lg shadow-inner">
+              <div id="suggestions" class="hidden absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 max-h-64 overflow-y-auto"></div>
             </div>
 
-            <!-- ACTION BUTTONS -->
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button
-                id="findBtn"
-                class="w-full sm:flex-1 bg-[#76c044] hover:bg-[#68a93c] active:bg-[#5d9635] text-white px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-semibold text-base sm:text-lg transition-all duration-200 shadow-lg shadow-[#76c044]/20 hover:shadow-xl hover:shadow-[#76c044]/30 hover:-translate-y-0.5">
-                Find My Route
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button id="findBtn" class="flex-1 bg-[#76c044] hover:bg-[#68a93c] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-[#76c044]/30 flex items-center justify-center gap-2">
+                <i data-lucide="search" class="w-5 h-5"></i> Find My Route
               </button>
-
-              <button
-                id="locationBtn"
-                class="w-full sm:flex-1 bg-white border-2 border-[#76c044] text-[#76c044] hover:bg-[#76c044] hover:text-white px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-semibold text-base sm:text-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-                📍 Use GPS Location
+              <button id="locationBtn" class="flex-1 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm">
+                <i data-lucide="map-pin" class="w-5 h-5"></i> Use GPS
               </button>
             </div>
-
-            <p id="error" class="text-sm sm:text-base text-red-600 font-medium hidden"></p>
+            <p id="error" class="text-sm text-red-600 font-bold hidden bg-red-50 p-3 rounded-lg"></p>
           </div>
-
         </div>
       </div>
 
-      <!-- IMAGE -->
-      <div class="w-full bg-gradient-to-br from-slate-50 to-slate-100 p-[10px] flex items-center justify-center">
-        <img
-          src="/kavyashuttle.png"
-          class="rounded-2xl sm:rounded-3xl w-full max-w-xs sm:max-w-sm lg:max-w-md object-contain drop-shadow-2xl"
-          alt="Shuttle Van"
-        />
+      <div class="bg-slate-50 flex items-center justify-center p-8">
+        <img src="/kavyashuttle.png" class="w-full max-w-md drop-shadow-2xl" alt="Shuttle Illustration">
       </div>
-
     </div>
   </div>
+
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="bg-white p-8 rounded-[32px] border-b-8 border-blue-600 shadow-xl transition-all hover:-translate-y-2">
+      <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+        <i data-lucide="mouse-pointer-2" class="w-7 h-7"></i>
+      </div>
+      <h3 class="font-black text-xl text-slate-900 mb-3">Instant Search</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Quickly find your stop within the 
+        Kavya network across the valley.
+      </p>
+    </div>
+
+    <div class="bg-white p-8 rounded-[32px] border-b-8 border-[#f39200] shadow-xl transition-all hover:-translate-y-2">
+      <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 text-[#f39200]">
+        <i data-lucide="navigation" class="w-7 h-7"></i>
+      </div>
+      <h3 class="font-black text-xl text-slate-900 mb-3">GPS Ready</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Let <span class="kavya-text text-[10px] uppercase">
+         
+        </span> Shuttle find the nearest pickup location based on your current coordinates.
+      </p>
+    </div>
+
+    <div class="bg-white p-8 rounded-[32px] border-b-8 border-[#76c044] shadow-xl transition-all hover:-translate-y-2">
+      <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-6 text-[#76c044]">
+        <i data-lucide="check-circle" class="w-7 h-7"></i>
+      </div>
+      <h3 class="font-black text-xl text-slate-900 mb-3">Verified Info</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Access direct contact details for every authorized 
+        Kavya shuttle driver.
+      </p>
+    </div>
+  </section>
 </main>
 
-<!-- FEATURE CARDS -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-16">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-
-    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-slate-200">
-      <div class="text-4xl sm:text-5xl mb-4">🔍</div>
-      <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Search by location</h3>
-      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-        Type a few letters and get instant suggestions for nearby routes.
-      </p>
-    </div>
-
-    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-slate-200">
-      <div class="text-4xl sm:text-5xl mb-4">📍</div>
-      <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Use GPS</h3>
-      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-        Automatically detects your nearest pickup point using your location.
-      </p>
-    </div>
-
-    <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-slate-200 sm:col-span-2 lg:col-span-1">
-      <div class="text-4xl sm:text-5xl mb-4">✅</div>
-      <h3 class="font-bold text-lg sm:text-xl mb-2 text-slate-900">Verified routes</h3>
-      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-        Official school shuttles with verified routes and driver details.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-white border-t border-slate-200 mt-8 sm:mt-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 text-center">
-    <p class="text-sm sm:text-base text-slate-600 font-medium">
-      Made with 💚 by Students at Kavya School
-    </p>
-  </div>
+<footer class="py-12 text-center text-slate-400 font-medium">
+  Made with <span class="text-red-500">❤</span> by 
+  <span class="kavya-text text-sm">
+    <span class="k-orange">K</span><span class="a-red">a</span><span class="v-blue">v</span><span class="y-green">y</span><span class="a-slate">a</span>
+  </span> Students
 </footer>
 
 <script>
@@ -145,14 +130,14 @@ const errorBox = document.getElementById("error");
 const findBtn = document.getElementById("findBtn");
 const locationBtn = document.getElementById("locationBtn");
 
+// Initialize Icons
+lucide.createIcons();
+
+// Load Data
 fetch("index.json")
   .then(res => res.json())
-  .then(data => {
-    routesData = data;
-  })
-  .catch(() => {
-    showError("Failed to load route data.");
-  });
+  .then(data => { routesData = data; })
+  .catch(() => { showError("Failed to load route data."); });
 
 function getScore(query, text) {
   if (text === query) return 6;
@@ -172,12 +157,10 @@ searchInput.addEventListener("input", () => {
   }
 
   let results = [];
-
   Object.entries(routesData).forEach(([routeId, route]) => {
     route.pickup_locations.forEach(loc => {
       const name = loc.name.toLowerCase();
       const score = getScore(query, name);
-
       if (score > 0) {
         results.push({
           routeId,
@@ -195,7 +178,6 @@ searchInput.addEventListener("input", () => {
   }
 
   results.sort((a, b) => b.score - a.score);
-
   const unique = [];
   const seen = new Set();
 
@@ -209,96 +191,55 @@ searchInput.addEventListener("input", () => {
 
   unique.forEach(r => {
     const div = document.createElement("div");
-    div.className = "px-4 sm:px-5 py-3.5 sm:py-4 cursor-pointer hover:bg-[#76c044]/5 active:bg-[#76c044]/10 transition-colors border-b last:border-b-0";
-
+    div.className = "px-6 py-4 cursor-pointer hover:bg-slate-50 transition-colors border-b last:border-b-0";
     div.innerHTML = `
-      <div class="font-semibold text-base sm:text-lg text-slate-900">${r.location}</div>
-      <div class="text-xs sm:text-sm text-slate-500 mt-1">
-        Route-${r.routeId} • ${r.routeName}
-      </div>
+      <div class="font-bold text-slate-900">${r.location}</div>
+      <div class="text-sm text-slate-500">Route ${r.routeId} • ${r.routeName}</div>
     `;
-
-    div.onclick = () => {
-      window.location.href = `route.html?id=${r.routeId}`;
-    };
-
+    div.onclick = () => { window.location.href = `route.html?id=${r.routeId}`; };
     suggestionsBox.appendChild(div);
   });
-
   suggestionsBox.classList.remove("hidden");
 });
 
 findBtn.onclick = () => {
-  const input = searchInput;
-  
-  if (input.classList.contains("hidden")) {
-    input.classList.remove("hidden");
-    input.focus();
+  if (searchInput.classList.contains("hidden")) {
+    searchInput.classList.remove("hidden");
+    searchInput.focus();
   } else {
     const query = searchInput.value.trim().toLowerCase();
-
-    if (!query) {
-      showError("Please type your nearest location.");
-      return;
-    }
-
-    let bestMatch = null;
-    let bestScore = 0;
-
+    if (!query) { showError("Please type your nearest location."); return; }
+    
+    let bestMatch = null, bestScore = 0;
     Object.entries(routesData).forEach(([routeId, route]) => {
       route.pickup_locations.forEach(loc => {
-        const name = loc.name.toLowerCase();
-        const score = getScore(query, name);
-        if (score > bestScore) {
-          bestScore = score;
-          bestMatch = routeId;
-        }
+        const score = getScore(query, loc.name.toLowerCase());
+        if (score > bestScore) { bestScore = score; bestMatch = routeId; }
       });
     });
 
-    if (!bestMatch) {
-      showError("No matching route found.");
-      return;
-    }
-
+    if (!bestMatch) { showError("No matching route found."); return; }
     window.location.href = `route.html?id=${bestMatch}`;
   }
 };
 
 locationBtn.onclick = () => {
   errorBox.classList.add("hidden");
-
-  if (!navigator.geolocation) {
-    showError("Geolocation not supported.");
-    return;
-  }
-
+  if (!navigator.geolocation) { showError("Geolocation not supported."); return; }
+  
   navigator.geolocation.getCurrentPosition(pos => {
     const { latitude, longitude } = pos.coords;
     let closest = { dist: Infinity, routeId: null };
-
     Object.entries(routesData).forEach(([routeId, route]) => {
       route.pickup_locations.forEach(loc => {
-        const d = haversine(
-          latitude,
-          longitude,
-          parseFloat(loc.latitude),
-          parseFloat(loc.longitude)
-        );
-
-        if (d < closest.dist) {
-          closest = { dist: d, routeId };
-        }
+        const d = haversine(latitude, longitude, parseFloat(loc.latitude), parseFloat(loc.longitude));
+        if (d < closest.dist) closest = { dist: d, routeId };
       });
     });
-
     if (closest.dist > 5 || !closest.routeId) {
-      showError(
-        "No route found nearby. Please contact student services."
-      );
+      showError("No route found nearby. Please search manually.");
       return;
     }
-
     window.location.href = `route.html?id=${closest.routeId}`;
   });
 };
@@ -312,16 +253,9 @@ function haversine(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1 * Math.PI / 180) *
-    Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) ** 2;
-
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 </script>
-
 </body>
 </html>
