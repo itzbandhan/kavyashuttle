@@ -114,7 +114,7 @@
     ]
   },
   "4": {
-    "route_name": "Imadol-Gwarko",
+    "route_name": "ROUTE NO: 4",
     "driver_name": "Dipesh Tamang",
     "driver_contact": "9702661294",
     "school_contact": "9801066771, 9802356792",
@@ -226,9 +226,9 @@
     ]
   },
   "8": {
-    "route_name": "Kalanki-Bishnudevi-Chandragiri",
+    "route_name": "ROUTE NO: 8",
     "driver_name": "Shajeev Shrestha",
-    "driver_contact": "9801099887",
+    "driver_contact": "N/A",
     "school_contact": "9801066771, 9802356792",
     "pickup_locations": [
       {
@@ -254,9 +254,9 @@
     ]
   },
   "9": {
-    "route_name": "Chhauni-Bafal",
+    "route_name": "ROUTE NO: 9",
     "driver_name": "Dorje Khandu Bhutiya",
-    "driver_contact": "9801099885",
+    "driver_contact": "N/A",
     "school_contact": "9801066771, 9802356792",
     "pickup_locations": [
       {
@@ -277,9 +277,9 @@
     ]
   },
   "10": {
-    "route_name": "Balaju-Banasthali",
-    "driver_name": "Hari Chandra Pandey",
-    "driver_contact": "9841423435",
+    "route_name": "ROUTE NO: 10 Balaju-Banasthali",
+    "driver_name": "N/A",
+    "driver_contact": "N/A",
     "school_contact": "9801066771, 9802356792",
     "pickup_locations": [
       {
@@ -311,13 +311,18 @@
         "name": "Kharibot",
         "latitude": "28.1963924",
         "longitude": "84.6465495"
+      },
+      {
+        "name": "Banasthali,",
+        "latitude": "27.7249402",
+        "longitude": "85.2977635"
       }
     ]
   },
   "11": {
-    "route_name": "Futung-Sesmati",
+    "route_name": "Driver Name : Nirmal Achhami",
     "driver_name": "Nirmal Achhami",
-    "driver_contact": "9841409878",
+    "driver_contact": "N/A",
     "school_contact": "9801066771, 9802356792",
     "pickup_locations": [
       {
@@ -333,7 +338,7 @@
     ]
   },
   "12": {
-    "route_name": "Tokha-Dhapasi",
+    "route_name": "Driver Name: Aashish Magar",
     "driver_name": "Aashish Magar",
     "driver_contact": "9862436193",
     "school_contact": "9801066771, 9802356792",
@@ -361,7 +366,7 @@
     ]
   },
   "13": {
-    "route_name": "Hattigauda-Budhanilkantha",
+    "route_name": "Driver Name :  Keshav Basu",
     "driver_name": "Keshav Basu",
     "driver_contact": "9841724110",
     "school_contact": "9801066771, 9802356792",
@@ -399,7 +404,7 @@
     ]
   },
   "14": {
-    "route_name": "Basundhara-Golfutar",
+    "route_name": "Driver Name: Samir Lama",
     "driver_name": "Samir Lama",
     "driver_contact": "9810325792",
     "school_contact": "9801066771, 9802356792",
@@ -422,25 +427,25 @@
     ]
   },
   "15": {
-    "route_name": "Battisputali",
+    "route_name": "ROUTE NO: 15 Kapan",
     "driver_name": "Rabi Khadka",
     "driver_contact": "9802365669",
     "school_contact": "9801066771, 9802356792",
     "pickup_locations": [
       {
-        "name": "Daffodil School",
+        "name": "डाफेडिल स्कूल",
         "latitude": "27.7265389",
         "longitude": "85.3553752"
       },
       {
-        "name": "Battisputali",
+        "name": "बत्तीसपुतली",
         "latitude": "27.7056762",
         "longitude": "85.3415089"
       }
     ]
   },
   "16": {
-    "route_name": "Makalbari-Chabahil",
+    "route_name": "Driver Name: Narendra Tamang",
     "driver_name": "Narendra Tamang",
     "driver_contact": "9840338587",
     "school_contact": "9801066771, 9802356792",
@@ -458,7 +463,7 @@
     ]
   },
   "17": {
-    "route_name": "Thali-Guheshswori",
+    "route_name": "ROUTE NO: 17 Thali-Guheshswori",
     "driver_name": "Norbhu Lama",
     "driver_contact": "9848071820",
     "school_contact": "9801066771, 9802356792",
@@ -476,7 +481,7 @@
     ]
   },
   "18": {
-    "route_name": "Gothatar-Mulpani",
+    "route_name": "Driver Name: Sonu Tamang",
     "driver_name": "Sonu Tamang",
     "driver_contact": "9709097313",
     "school_contact": "9801066771, 9802356792",
@@ -494,7 +499,7 @@
     ]
   },
   "19": {
-    "route_name": "RNAC-Thamel",
+    "route_name": "Driver Name: Arjun Shrestha",
     "driver_name": "Arjun Shrestha",
     "driver_contact": "9861774283",
     "school_contact": "9801066771, 9802356792",
@@ -522,7 +527,7 @@
     ]
   },
   "20": {
-    "route_name": "Pepsicola-Suncity",
+    "route_name": "Driver Name: Uttam Shrestha",
     "driver_name": "Uttam Shrestha",
     "driver_contact": "9841529216",
     "school_contact": "9801066771, 9802356792",
@@ -545,7 +550,7 @@
     ]
   },
   "21": {
-    "route_name": "Swoyambhu-Sitapaila",
+    "route_name": "Driver Name:  Anup Karki",
     "driver_name": "Anup Karki",
     "driver_contact": "9829351082",
     "school_contact": "9801066771, 9802356792",
@@ -568,7 +573,7 @@
     ]
   },
   "22": {
-    "route_name": "Sukedhara-Anamnagar",
+    "route_name": "Driver Name:  Krishna Pakhrin",
     "driver_name": "Krishna Pakhrin",
     "driver_contact": "9841071657",
     "school_contact": "9801066771, 9802356792",
@@ -586,7 +591,7 @@
     ]
   },
   "23": {
-    "route_name": "Hadigaun-Naxal",
+    "route_name": "Driver Name:  Jit Bahadur",
     "driver_name": "Jit Bahadur",
     "driver_contact": "9860039044",
     "school_contact": "9801066771, 9802356792",
@@ -619,8 +624,8 @@
     ]
   },
   "24": {
-    "route_name": "Sinamangal-Shantinagar",
-    "driver_name": "Krishna Chaulagain",
+    "route_name": "Driver Name:",
+    "driver_name": "N/A",
     "driver_contact": "9841827485",
     "school_contact": "9801066771, 9802356792",
     "pickup_locations": [

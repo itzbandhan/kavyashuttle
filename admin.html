@@ -1,39 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Kavya Shuttle</title>
   <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="shortcut icon" href="https://kavyaschool.edu.np/favicon.ico" type="image/x-icon">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="shortcut icon" href="https://kavyaschool.edu.np/favicon.ico" type="image/x-icon">
+  <style>
+    /* Custom scrollbar for better UX in the scrollable modal area */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
 </head>
 
-<body class="bg-slate-100 p-6">
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
 
-<a href="index.html" class="text-blue-600 text-sm">← Back to Home</a>
+<div id="loginScreen" class="min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 w-full max-w-md">
+    <div class="text-center mb-8">
+      <img src="https://kavyaschool.edu.np/images/Kavya-Ing.svg" class="h-16 w-auto object-contain mx-auto mb-4" alt="Kavya Logo" />
+      <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Admin Login</h1>
+      <p class="text-slate-600">Enter access code to continue</p>
+    </div>
 
-<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow p-6 mt-4">
-  <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-2">Access Code</label>
+        <input id="accessCode" type="password" placeholder="Enter access code" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-[#76c044] focus:ring-4 focus:ring-[#76c044]/10 outline-none transition text-lg" />
+      </div>
+      <button id="loginBtn" class="w-full bg-[#76c044] hover:bg-[#68a93c] text-white px-6 py-3.5 rounded-xl font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5">Login</button>
+      <p id="loginError" class="text-sm text-red-600 font-medium hidden text-center"></p>
+    </div>
 
-  <p class="text-slate-600 mb-4">
-    Preview all shuttle routes stored locally.
-  </p>
+    <div class="mt-6 text-center">
+      <a href="index.html" class="text-sm text-slate-600 hover:text-slate-900 transition">← Back to Home</a>
+    </div>
+  </div>
+</div>
 
-  <div id="routes" class="space-y-3"></div>
+<div id="adminDashboard" class="hidden">
+  
+  <header class="sticky top-0 backdrop-blur-sm z-50 bg-white/80 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="index.html" class="flex-shrink-0 transition-opacity hover:opacity-80">
+            <img src="https://kavyaschool.edu.np/images/Kavya-Ing.svg" class="h-10 sm:h-12 md:h-14 w-auto object-contain" alt="Kavya Logo" />
+          </a>
+          <div class="hidden sm:block border-l border-slate-300 pl-3 sm:pl-4">
+            <h1 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">Admin Dashboard</h1>
+            <p class="text-xs sm:text-sm text-slate-600">Manage shuttle routes</p>
+          </div>
+        </div>
+        <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+        <button id="addRouteBtn" class="bg-[#76c044] hover:bg-[#68a93c] text-white px-6 py-3.5 rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
+          <i data-lucide="plus-circle" class="w-5 h-5"></i> Add New Route
+        </button>
+        <button id="saveAllBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3.5 rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
+          <i data-lucide="save" class="w-5 h-5"></i> Save All Changes
+        </button>
+      </div>
+
+      <div class="relative flex-1 max-w-md w-full">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </div>
+        <input id="adminSearchInput" type="text" placeholder="Search Route ID, name, or driver..." class="w-full pl-11 pr-4 py-3.5 rounded-xl border-2 border-white bg-white shadow-sm focus:border-[#76c044] focus:ring-4 focus:ring-[#76c044]/10 outline-none transition-all text-slate-700" />
+      </div>
+    </div>
+
+    <div id="routesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+</div>
+
+<div id="routeModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-3xl flex flex-col max-h-[90vh] overflow-hidden">
+    
+    <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+      <h2 id="modalTitle" class="text-2xl font-black text-slate-900">Add New Route</h2>
+      <button id="closeModal" class="text-slate-400 hover:text-slate-600 transition text-3xl leading-none">×</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-6 sm:p-8 bg-slate-50/30 custom-scrollbar">
+      <form id="routeForm" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Route Name *</label>
+            <input id="routeName" type="text" required placeholder="e.g., Bhaktapur" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-[#76c044] outline-none transition bg-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Driver Name *</label>
+            <input id="driverName" type="text" required placeholder="e.g., Ram Sharma" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-[#76c044] outline-none transition bg-white" />
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Driver Contact</label>
+            <input id="driverContact" type="text" placeholder="9841..." class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-[#76c044] outline-none transition bg-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">School Contact</label>
+            <input id="schoolContact" type="text" placeholder="9801..." class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-[#76c044] outline-none transition bg-white" />
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xs font-bold text-slate-500 uppercase">Pickup Locations</h3>
+            <button type="button" id="addLocationBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">+ Add Stop</button>
+          </div>
+          <div id="locationsContainer" class="space-y-4"></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="p-6 border-t border-slate-100 bg-white flex flex-col sm:flex-row gap-3">
+      <button type="submit" form="routeForm" class="flex-1 bg-[#76c044] hover:bg-[#68a93c] text-white px-6 py-4 rounded-2xl font-bold transition-all shadow-lg">Update List</button>
+      <button type="button" id="cancelBtn" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 px-6 py-4 rounded-2xl font-bold transition">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <script>
-fetch("index.json")
-  .then(r => r.json())
-  .then(data => {
-    const box = document.getElementById("routes");
-    Object.entries(data).forEach(([id, r]) => {
-      box.innerHTML += `
-        <div class="border rounded-xl p-4">
-          <p class="font-semibold">Route-${id}</p>
-          <p class="text-sm text-slate-600">${r.route_name}</p>
-        </div>
-      `;
+const ADMIN_CODE = 'Kavya@25';
+const DELETE_CODE = 'KSPT25';
+let isAuthenticated = false;
+let routesData = {};
+let editingRouteId = null;
+
+window.addEventListener('load', () => {
+  lucide.createIcons();
+  if (sessionStorage.getItem('adminAuth') === 'authenticated') {
+    isAuthenticated = true;
+    showDashboard();
+    loadRoutes();
+  }
+});
+
+document.getElementById('loginBtn').addEventListener('click', () => {
+  const code = document.getElementById('accessCode').value.trim();
+  if (code === ADMIN_CODE) {
+    isAuthenticated = true;
+    sessionStorage.setItem('adminAuth', 'authenticated');
+    showDashboard();
+    loadRoutes();
+  } else {
+    document.getElementById('loginError').classList.remove('hidden');
+    document.getElementById('loginError').textContent = 'Invalid access code';
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  isAuthenticated = false;
+  sessionStorage.removeItem('adminAuth');
+  location.reload();
+});
+
+function showDashboard() {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('adminDashboard').classList.remove('hidden');
+}
+
+function loadRoutes() {
+  fetch('index.json').then(res => res.json()).then(data => {
+    routesData = data;
+    renderRoutes();
+  }).catch(() => console.log('Starting with empty data or error loading file.'));
+}
+
+document.getElementById('adminSearchInput').addEventListener('input', (e) => renderRoutes(e.target.value.toLowerCase()));
+
+function renderRoutes(searchTerm = '') {
+  const container = document.getElementById('routesList');
+  container.innerHTML = '';
+  Object.entries(routesData).filter(([id, r]) => {
+    return id.includes(searchTerm) || r.route_name.toLowerCase().includes(searchTerm) || r.driver_name.toLowerCase().includes(searchTerm);
+  }).forEach(([id, route]) => {
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded-2xl p-6 shadow-lg border border-slate-100 flex flex-col h-full';
+    card.innerHTML = `
+      <div class="mb-4">
+        <span class="text-[10px] font-bold uppercase text-[#76c044] bg-[#76c044]/10 px-2 py-1 rounded mb-2 inline-block">Route ID: ${id}</span>
+        <h3 class="text-xl font-black text-slate-900">${route.route_name}</h3>
+      </div>
+      <div class="space-y-2 mb-6 text-sm flex-1 text-slate-600">
+        <p><strong>Driver:</strong> ${route.driver_name}</p>
+        <p><strong>Contact:</strong> ${route.driver_contact}</p>
+        <p><strong>Stops:</strong> ${route.pickup_locations.length}</p>
+      </div>
+      <div class="flex gap-2 pt-4 border-t border-slate-50">
+        <button onclick="editRoute('${id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl font-bold transition text-sm">Edit</button>
+        <button onclick="deleteRoute('${id}')" class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-xl font-bold transition text-sm">Delete</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+  lucide.createIcons();
+}
+
+document.getElementById('addRouteBtn').addEventListener('click', () => {
+  editingRouteId = null;
+  document.getElementById('modalTitle').textContent = 'Add New Route';
+  document.getElementById('routeForm').reset();
+  document.getElementById('locationsContainer').innerHTML = '';
+  addLocationField();
+  document.getElementById('routeModal').classList.remove('hidden');
+});
+
+document.getElementById('routeForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const locations = [];
+  document.querySelectorAll('#locationsContainer > div').forEach(div => {
+    locations.push({
+      name: div.querySelector('.location-name').value.trim(),
+      latitude: div.querySelector('.location-lat').value.trim(),
+      longitude: div.querySelector('.location-lng').value.trim()
     });
   });
+  const data = {
+    route_name: document.getElementById('routeName').value.trim(),
+    driver_name: document.getElementById('driverName').value.trim(),
+    driver_contact: document.getElementById('driverContact').value.trim(),
+    school_contact: document.getElementById('schoolContact').value.trim(),
+    pickup_locations: locations
+  };
+  if (editingRouteId) routesData[editingRouteId] = data;
+  else routesData[getNextRouteId()] = data;
+  renderRoutes();
+  closeModal();
+});
+
+document.getElementById('saveAllBtn').addEventListener('click', () => {
+  const json = JSON.stringify(routesData, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.json';
+  a.click();
+  alert('All changes exported. Replace your index.json with this file.');
+});
+
+function editRoute(id) {
+  editingRouteId = id;
+  const route = routesData[id];
+  document.getElementById('modalTitle').textContent = 'Edit Route ' + id;
+  document.getElementById('routeName').value = route.route_name;
+  document.getElementById('driverName').value = route.driver_name;
+  document.getElementById('driverContact').value = route.driver_contact;
+  document.getElementById('schoolContact').value = route.school_contact;
+  document.getElementById('locationsContainer').innerHTML = '';
+  route.pickup_locations.forEach(loc => addLocationField(loc));
+  document.getElementById('routeModal').classList.remove('hidden');
+}
+
+function deleteRoute(id) {
+  if (prompt('Enter deletion password:') === DELETE_CODE) {
+    delete routesData[id];
+    renderRoutes();
+  } else {
+    alert('Incorrect password.');
+  }
+}
+
+function addLocationField(location = null) {
+  const container = document.getElementById('locationsContainer');
+  const div = document.createElement('div');
+  div.className = 'p-4 bg-white border-2 border-slate-100 rounded-xl space-y-3 relative shadow-sm';
+  div.innerHTML = `
+    <button type="button" onclick="this.parentElement.remove()" class="absolute top-2 right-3 text-red-400 font-bold">×</button>
+    <input type="text" placeholder="Location name" value="${location ? location.name : ''}" required class="location-name w-full px-3 py-2 rounded-lg border border-slate-200 outline-none focus:border-[#76c044] text-sm" />
+    <div class="grid grid-cols-2 gap-2">
+      <input type="text" placeholder="Lat" value="${location ? location.latitude : ''}" required class="location-lat w-full px-3 py-2 rounded-lg border border-slate-200 text-sm" />
+      <input type="text" placeholder="Lng" value="${location ? location.longitude : ''}" required class="location-lng w-full px-3 py-2 rounded-lg border border-slate-200 text-sm" />
+    </div>
+  `;
+  container.appendChild(div);
+}
+
+function getNextRouteId() {
+  const ids = Object.keys(routesData).map(Number);
+  return ids.length ? (Math.max(...ids) + 1).toString() : "1";
+}
+
+function closeModal() { document.getElementById('routeModal').classList.add('hidden'); }
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+document.getElementById('addLocationBtn').addEventListener('click', () => addLocationField());
 </script>
 
 </body>

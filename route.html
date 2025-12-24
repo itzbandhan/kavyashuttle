@@ -11,8 +11,36 @@
 
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
 
-<header class="py-6 flex justify-center bg-white border-b border-slate-100 shadow-sm">
-  <img src="https://kavyaschool.edu.np/images/Kavya-Ing.svg" class="h-12 w-auto" alt="Kavya Logo" />
+<!-- HEADER -->
+<header class="sticky top-0 backdrop-blur-sm z-50 border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="index.html" class="flex-shrink-0 transition-opacity hover:opacity-80">
+          <img
+            src="https://kavyaschool.edu.np/images/Kavya-Ing.svg"
+            class="h-10 sm:h-12 md:h-14 w-auto object-contain"
+            alt="Kavya Logo"
+          />
+        </a>
+        <div class="hidden sm:block border-l border-slate-300 pl-3 sm:pl-4">
+          <h1 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">Shuttle Finder</h1>
+          <p class="text-xs sm:text-sm text-slate-600">Find your route</p>
+        </div>
+      </div>
+
+      <a 
+        href="admin.html"
+        class="flex items-center gap-2 bg-slate-700 hover:from-slate-800 hover:to-black text-white px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:block">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Admin</span>
+      </a>
+    </div>
+  </div>
 </header>
 
 <div class="max-w-4xl mx-auto px-4 pt-8">
@@ -74,10 +102,10 @@ fetch("index.json")
             </div>
           </div>
           <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
-            <div class="w-12 h-12 bg-white text-blue-500 rounded-2xl flex items-center justify-center shadow-sm"><i data-lucide="phone"></i></div>
+            <div class="w-12 h-12 bg-white text-[#76c044] rounded-2xl flex items-center justify-center shadow-sm"><i data-lucide="phone"></i></div>
             <div>
               <p class="text-xs font-bold text-slate-400 uppercase">Driver Contact</p>
-              <a href="tel:${r.driver_contact}" class="text-xl font-black text-blue-600 hover:underline transition-all">
+              <a href="tel:${r.driver_contact}" class="text-xl font-black text-slate-600 hover:underline transition-all">
                 ${r.driver_contact}
               </a>
             </div>
@@ -90,7 +118,7 @@ fetch("index.json")
                <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i> Scheduled Stops
             </h2>
             
-            <button onclick="navigateToNearestStop()" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-200">
+            <button onclick="navigateToNearestStop()" class="inline-flex items-center justify-center gap-2 bg-[#76c044] hover:bg-[#68a93c] text-white px-4 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-slate-100">
               <i data-lucide="navigation" class="w-4 h-4"></i>
               Navigate to Nearest Stop
             </button>
